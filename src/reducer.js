@@ -51,7 +51,6 @@ export default function (state = initialState, action) {
 				...state,
 				grid: calculateNewGeneration(state.grid)
 			}
-			break;
 		case 'SET_INTERVAL':
 			if (state.interval)
 				clearInterval(state.interval);
@@ -60,7 +59,6 @@ export default function (state = initialState, action) {
 				...state,
 				interval: action.interval
 			}
-			break
 		case 'RUN':
 			//set interval that will calculate new generations
 			return dispatch => dispatch({
@@ -70,7 +68,6 @@ export default function (state = initialState, action) {
 					(action.speed || state.speed) * (100 / 1000)
 				)
 			});
-			break;
 		case 'PAUSE':
 			//delete interval
 			if (state.interval)
@@ -80,21 +77,18 @@ export default function (state = initialState, action) {
 				...state,
 				interval: undefined
 			};
-			break;
 		case 'SET_SPEED':
 			//reset interval with new speed
 			return dispatch => dispatch({
 				type: 'RUN',
 				speed: action.speed
 			});
-			break;
 		case 'SET_DIMENSIONS':
 			return {
 				...state,
 				grid: expandGrid(state, action.height, action.width)
 			};
 			//reset grid dimensions
-			break;
 		default:
 			return state;
 	}

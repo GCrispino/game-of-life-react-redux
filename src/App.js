@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import reducer from './reducer';
 
 class App extends Component {
   render() {
-    // console.log(reducer);
     return (
       <div className="App">
         <header className="App-header">
