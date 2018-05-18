@@ -1,9 +1,11 @@
-const height = 50, width = 50;
+
+const height = 20, width = 20;
 
 const initialState = {
 	width,
 	height,
-	grid: Array(height).fill([]).map(row => Array(width).fill(false).map(x => x)),
+	cellSize: 30,
+	grid: Array(height).fill([]).map(row => Array(width).fill(false).map(x => (Math.random() < .25) ? true : x)),
 	nGeneration: 0,
 	speed: 1,
 	interval: null
@@ -42,7 +44,6 @@ const expandGrid = ({ grid , width , height },newHeight,newWidth) =>
 const calculateNewGeneration = 
 	grid => grid.map( (row,i) => row.map( (cell,j) => getCellNewState(grid,cell,i,j) ) );
 
-
 export default function (state = initialState, action) {
 	switch (action.type) {
 		case 'CALC_NEW_GENERATION':
@@ -51,7 +52,7 @@ export default function (state = initialState, action) {
 				...state,
 				grid: calculateNewGeneration(state.grid)
 			}
-		case 'SET_INTERVAL':
+		case 'RUN':
 			if (state.interval)
 				clearInterval(state.interval);
 
@@ -59,15 +60,6 @@ export default function (state = initialState, action) {
 				...state,
 				interval: action.interval
 			}
-		case 'RUN':
-			//set interval that will calculate new generations
-			return dispatch => dispatch({
-				type: 'SET_INTERVAL',
-				interval: setInterval(
-					() => dispatch({ type: 'CALC_NEW_GENERATION' }),
-					(action.speed || state.speed) * (100 / 1000)
-				)
-			});
 		case 'PAUSE':
 			//delete interval
 			if (state.interval)

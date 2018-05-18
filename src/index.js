@@ -10,7 +10,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 ReactDOM.render(
-	<Provider store={createStore(reducer,applyMiddleware(thunk))}>
+	<Provider store={createStore(reducer, applyMiddleware(thunk))}>
 		<App />
 	</Provider>, document.getElementById('root'));
 registerServiceWorker();
