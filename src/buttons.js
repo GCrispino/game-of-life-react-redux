@@ -2,15 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { run } from './actionCreators';
 
+const createButtonComponent = (children,action) => 
+	connect(
+		state => state,
+		dispatch => ({
+			handleClick: () => dispatch(action)
+		})
+	)(
+		({ handleClick }) => <button onClick={handleClick}>{ children }</button>
+	);
 
-export const StepButton = connect(
-  state => state,
-  dispatch => ({
-    handleClick: () => dispatch({type: 'CALC_NEW_GENERATION'})
-  })
-)(
-  ({ handleClick }) => <button onClick={handleClick}>Step</button>
-)
+export const StepButton = createButtonComponent('Step',{type: 'CALC_NEW_GENERATION'});
+export const PauseButton = createButtonComponent('Pause',{type: 'PAUSE'});
 
 export const RunButton = connect(
   state => state,
@@ -19,11 +22,3 @@ export const RunButton = connect(
   ({ run }) => <button onClick={run}>Run</button>
 )
 
-export const PauseButton = connect(
-  state => state,
-  dispatch => ({
-    handleClick: () => dispatch({type: 'PAUSE'})
-  })
-)(
-  ({ handleClick }) => <button onClick={handleClick}>Pause</button>
-)
