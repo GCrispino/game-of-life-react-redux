@@ -5,7 +5,9 @@ import { run } from './actionCreators';
 const createButtonComponent = (children,action) => 
 	connect(
 		state => state,
-		dispatch => ({
+		action && action.handleClick 
+		? {handleClick: action.handleClick} //if it's an object with the function(for thunks), it should have the handleClick callback
+		: dispatch => ({ //if it's an ordinary action object, it gets passed to the prop as is
 			handleClick: () => dispatch(action)
 		})
 	)(
@@ -14,11 +16,4 @@ const createButtonComponent = (children,action) =>
 
 export const StepButton = createButtonComponent('Step',{type: 'CALC_NEW_GENERATION'});
 export const PauseButton = createButtonComponent('Pause',{type: 'PAUSE'});
-
-export const RunButton = connect(
-  state => state,
-  { run }
-)(
-  ({ run }) => <button onClick={run}>Run</button>
-)
-
+export const RunButton = createButtonComponent('Run',{handleClick: run});
