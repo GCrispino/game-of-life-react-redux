@@ -34,15 +34,18 @@ const getCellNewState = (grid,cell,i,j) => {
 	: nLiveNeighbors === 3 ? true : false;
 };
 
-const expandGrid = ({ grid , width , height },newHeight,newWidth) => ({
-	grid: Array(newHeight).fill(false).map((row,i) => {
-		return Array(newWidth).fill(false).map((cell,j) => {
-			return (i < height) && (j < width) && grid[i][j];
-		})
-	}),
-	height: newHeight,
-	width: newWidth
-});
+const expandGrid = ({ grid , width , height },newHeight,newWidth) => {
+	const obj = ({
+		grid: Array(newHeight).fill(false).map((row,i) => {
+			return Array(newWidth).fill(false).map((cell,j) => {
+				return (i < height) && (j < width) && grid[i][j];
+			})
+		}),
+		height: newHeight,
+		width: newWidth
+	})
+	return obj;
+};
 
 const calculateNewGeneration = 
 	grid => grid.map( (row,i) => row.map( (cell,j) => getCellNewState(grid,cell,i,j) ) );

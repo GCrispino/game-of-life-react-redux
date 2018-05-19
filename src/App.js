@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Grid from './Grid';
-import { StepButton, RunButton, PauseButton} from './buttons'
+import { StepButton, RunButton, PauseButton} from './buttons';
+import DimensionInput from './DimensionInput';
 import './App.css';
 
 
@@ -13,6 +14,7 @@ class App extends Component {
         <StepButton />
         <RunButton />
         <PauseButton />
+        <DimensionInput />
       </div>
     );
   }
