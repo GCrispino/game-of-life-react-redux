@@ -1,8 +1,8 @@
-export const run = () => dispatch =>
+export const run = () => (dispatch,getState) =>
 	dispatch({
 		type: 'RUN',
 		interval: setInterval(
 			() => dispatch({ type: 'CALC_NEW_GENERATION' }),
-			100
+			20000 / (100 * getState().speed)
 		)
 	});

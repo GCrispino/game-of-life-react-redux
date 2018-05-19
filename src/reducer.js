@@ -34,12 +34,15 @@ const getCellNewState = (grid,cell,i,j) => {
 	: nLiveNeighbors === 3 ? true : false;
 };
 
-const expandGrid = ({ grid , width , height },newHeight,newWidth) => 
-	Array(newHeight).fill(false).map((row,i) => 
-		Array(newWidth).fill(false).map((cell,j) => 
-			(i < height) && (j < width) && grid[i][j]
-		)
-	);
+const expandGrid = ({ grid , width , height },newHeight,newWidth) => ({
+	grid: Array(newHeight).fill(false).map((row,i) => {
+		return Array(newWidth).fill(false).map((cell,j) => {
+			return (i < height) && (j < width) && grid[i][j];
+		})
+	}),
+	height: newHeight,
+	width: newWidth
+});
 
 const calculateNewGeneration = 
 	grid => grid.map( (row,i) => row.map( (cell,j) => getCellNewState(grid,cell,i,j) ) );
@@ -78,7 +81,7 @@ export default function (state = initialState, action) {
 		case 'SET_DIMENSIONS':
 			return {
 				...state,
-				grid: expandGrid(state, action.height, action.width)
+				...expandGrid(state, action.height, action.width)
 			};
 			//reset grid dimensions
 		default:
