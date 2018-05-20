@@ -17,3 +17,4 @@ const createButtonComponent = (children,action) =>
 export const StepButton = createButtonComponent('Step',{type: 'CALC_NEW_GENERATION'});
 export const PauseButton = createButtonComponent('Pause',{type: 'PAUSE'});
 export const RunButton = createButtonComponent('Run',{handleClick: run});
+export const ResetButton = createButtonComponent('Reset',{type: 'RESET'});
