@@ -1,7 +1,5 @@
 import update from 'immutability-helper';
 
-const height = 20, width = 20;
-
 const generateNewGrid = (height, width) =>
 	Array(height).fill([]).map(
 		row => Array(width).fill(false).map(x => (Math.random() < .25) ? true : x)
@@ -48,11 +46,6 @@ const calculateNewGeneration =
 
 const checkAndClearInterval = interval => interval ? clearInterval(interval) : null;
 
-// const toggleCell = (grid, x, y) => 
-// 	grid.map( (row,i) => 
-// 		i === y ? row.map( (cell,j) => j === x ? !cell : cell)  : row
-// 	)
-
 const toggleCell = (grid,x,y) => 
 	update(grid,{
 		[y]: {
@@ -60,10 +53,11 @@ const toggleCell = (grid,x,y) =>
 		}
 	});
 
+const height = 35, width = 35;
 const initialState = {
 	width,
 	height,
-	cellSize: 30,
+	cellSize: 20,
 	grid: generateNewGrid(height,width),
 	nGeneration: 0,
 	speed: 1,
@@ -73,6 +67,8 @@ const initialState = {
 export default function (state = initialState, action) {
 	switch (action.type) {
 		case 'CALC_NEW_GENERATION':
+		console.log('blah');
+		
 			//derive new generation
 			return {
 				...state,
