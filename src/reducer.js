@@ -76,9 +76,10 @@ export default function (state = initialState, action) {
 			}
 		case 'RUN':
 			checkAndClearInterval(state.interval);
-
+			console.log('speed!',action.speed);
 			return {
 				...state,
+				speed: action.speed,
 				interval: action.interval
 			}
 		case 'PAUSE':
@@ -104,10 +105,10 @@ export default function (state = initialState, action) {
 			};
 		case 'SET_SPEED':
 			//reset interval with new speed
-			return dispatch => dispatch({
-				type: 'RUN',
+			return {
+				...state,
 				speed: action.speed
-			});
+			};
 		case 'SET_DIMENSIONS':
 			return {
 				...state,
