@@ -11,8 +11,8 @@ const DimensionInput = ({width, height, handleClick}) => {
 			<input type='text' defaultValue={width} ref={refInputWidth}/>
 			<button 
 				onClick={() => handleClick(
-					parseInt(refInputHeight.current.value),
-					parseInt(refInputWidth.current.value)
+					parseInt(refInputHeight.current.value,10),
+					parseInt(refInputWidth.current.value,10)
 				)}>
 				Change
 			</button>
