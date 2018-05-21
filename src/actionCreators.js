@@ -1,20 +1,19 @@
-export const run = speed => () => dispatch => 
-	dispatch({
+const __run = (dispatch,getState) => dispatch({
 		type: 'RUN',
-		speed,
 		interval: setInterval(
-			() => dispatch({ type: 'CALC_NEW_GENERATION'  }),
-			1000 - (speed - 1) * 250
+			() => {
+				dispatch({ type: 'CALC_NEW_GENERATION'  })},
+			1000 - (getState().speed - 1) * 250
 		)
 	});
 
-//TEST WITH setTimeout() !!
-// export const run = () => (dispatch,getState) => {
-// 	(function __run(){
-// 		setTimeout(() => {
-// 			dispatch({type: 'CALC_NEW_GENERATION'});
-// 			console.log(getState().height,getState().width);
-// 			__run();
-// 		},0);
-// 	})();
-// }
+export const run = () => __run;
+
+export const setSpeedAndRun = (speed) => () => (dispatch,getState) => {
+	dispatch({
+		type: 'SET_SPEED',
+		speed
+	});
+
+	__run(dispatch,getState,speed);
+}

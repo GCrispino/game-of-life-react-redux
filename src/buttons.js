@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { run } from './actionCreators';
+import { run, setSpeedAndRun } from './actionCreators';
 
 const createButtonComponent = (children,action) => 
 	connect(
@@ -14,12 +14,22 @@ const createButtonComponent = (children,action) =>
 		({ handleClick }) => <button onClick={handleClick}>{ children }</button>
 	);
 
+const selectedColor = 'red';
+
+const createSpeedButtonComponent = (children,speed,fn) => 
+	connect(
+		state => ({ background: state.speed === speed ? selectedColor : null }),
+		{ handleClick: fn(speed) }
+	)(
+		({ handleClick, background }) => <button onClick={handleClick} style={{background}}>{ children }</button>
+	);
+
 export const StepButton = createButtonComponent('Step',{type: 'CALC_NEW_GENERATION'});
 export const PauseButton = createButtonComponent('Pause',{type: 'PAUSE'});
-export const RunButton = createButtonComponent('Run',{handleClick: run(1)});
+export const RunButton = createButtonComponent('Run',{handleClick: run});
 export const ResetButton = createButtonComponent('Reset',{type: 'RESET'});
-export const SetSpeed1xButton = createButtonComponent('1x',{handleClick: run(1)});
-export const SetSpeed2xButton = createButtonComponent('2x',{handleClick: run(2)});
-export const SetSpeed3xButton = createButtonComponent('3x',{handleClick: run(3)});
-export const SetSpeed4xButton = createButtonComponent('4x',{handleClick: run(4)});
-export const SetSpeed5xButton = createButtonComponent('5x',{handleClick: run(5)});
+export const SetSpeed1xButton = createSpeedButtonComponent('1x',1,setSpeedAndRun);
+export const SetSpeed2xButton = createSpeedButtonComponent('2x',2,setSpeedAndRun);
+export const SetSpeed3xButton = createSpeedButtonComponent('3x',3,setSpeedAndRun);
+export const SetSpeed4xButton = createSpeedButtonComponent('4x',4,setSpeedAndRun);
+export const SetSpeed5xButton = createSpeedButtonComponent('5x',5,setSpeedAndRun);

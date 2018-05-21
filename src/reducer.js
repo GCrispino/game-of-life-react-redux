@@ -67,7 +67,6 @@ const initialState = {
 export default function (state = initialState, action) {
 	switch (action.type) {
 		case 'CALC_NEW_GENERATION':
-		console.log('blah');
 		
 			//derive new generation
 			return {
@@ -76,10 +75,8 @@ export default function (state = initialState, action) {
 			}
 		case 'RUN':
 			checkAndClearInterval(state.interval);
-			console.log('speed!',action.speed);
 			return {
 				...state,
-				speed: action.speed,
 				interval: action.interval
 			}
 		case 'PAUSE':
@@ -104,7 +101,6 @@ export default function (state = initialState, action) {
 				grid: toggleCell(state.grid,action.x,action.y)
 			};
 		case 'SET_SPEED':
-			//reset interval with new speed
 			return {
 				...state,
 				speed: action.speed
