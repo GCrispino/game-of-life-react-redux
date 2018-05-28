@@ -57,7 +57,7 @@ const height = 35, width = 35;
 const initialState = {
 	width,
 	height,
-	cellSize: 20,
+	cellSize: 17,
 	grid: generateNewGrid(height,width),
 	nGeneration: 0,
 	speed: 1,

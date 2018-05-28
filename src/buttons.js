@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button, Icon } from 'semantic-ui-react';
 import { run, setSpeedAndRun } from './actionCreators';
 
-const createButtonComponent = (children,action) => 
+const createButtonComponent = (children,action,props) => 
 	connect(
 		state => state,
 		action && action.handleClick 
@@ -11,23 +12,28 @@ const createButtonComponent = (children,action) =>
 				handleClick: () => dispatch(action)
 			})
 	)(
-		({ handleClick }) => <button onClick={handleClick}>{ children }</button>
+		({ handleClick }) => <Button className='simpleBlackButton' basic onClick={handleClick} {...props}>{ children }</Button>
 	);
 
 const selectedColor = 'red';
 
 const createSpeedButtonComponent = (children,speed,fn) => 
 	connect(
-		state => ({ background: state.speed === speed ? selectedColor : null }),
+		state => ({ color: state.speed === speed ? selectedColor : null }),
 		{ handleClick: fn(speed) }
 	)(
-		({ handleClick, background }) => <button onClick={handleClick} style={{background}}>{ children }</button>
+		({ handleClick, color }) => <Button basic size='tiny' color={color} onClick={handleClick} >{ children }</Button>
 	);
 
-export const StepButton = createButtonComponent('Step',{type: 'CALC_NEW_GENERATION'});
-export const PauseButton = createButtonComponent('Pause',{type: 'PAUSE'});
-export const RunButton = createButtonComponent('Run',{handleClick: run});
-export const ResetButton = createButtonComponent('Reset',{type: 'RESET'});
+export const StepButton = createButtonComponent(
+	<Icon name='step forward' />,
+	{type: 'CALC_NEW_GENERATION'},
+	{icon: true, title: 'Step'}
+);
+
+export const RunButton = createButtonComponent(<Icon name='play' />,{handleClick: run},{ icon: true,title: 'Run' });
+export const PauseButton = createButtonComponent(<Icon name='pause' />, { type: 'PAUSE' }, { icon: true,title: 'Pause' });
+export const ResetButton = createButtonComponent(<Icon name='repeat' />, { type: 'RESET' }, { icon: true, title: 'Reset' });
 export const SetSpeed1xButton = createSpeedButtonComponent('1x',1,setSpeedAndRun);
 export const SetSpeed2xButton = createSpeedButtonComponent('2x',2,setSpeedAndRun);
 export const SetSpeed3xButton = createSpeedButtonComponent('3x',3,setSpeedAndRun);

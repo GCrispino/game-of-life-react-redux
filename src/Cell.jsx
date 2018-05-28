@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const aliveColor = 'green',deadColor = 'white';
+const aliveColor = 'green',deadColor = 'rgb(249, 255, 250)';
 
 const Cell = ({ alive, size, x, y, handleClick }) => (
 	<rect 
