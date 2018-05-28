@@ -15,5 +15,6 @@ export const setSpeedAndRun = (speed) => () => (dispatch,getState) => {
 		speed
 	});
 
-	__run(dispatch,getState,speed);
+	if (getState().interval)
+		__run(dispatch,getState,speed);
 }

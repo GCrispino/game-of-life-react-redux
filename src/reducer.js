@@ -71,6 +71,7 @@ export default function (state = initialState, action) {
 			//derive new generation
 			return {
 				...state,
+				nGeneration: state.nGeneration + 1,
 				grid: calculateNewGeneration(state.grid)
 			}
 		case 'RUN':
@@ -93,6 +94,7 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				interval: undefined,
+				nGeneration: 0,
 				grid: generateNewGrid(state.height,state.width)
 			}
 		case 'TOGGLE_CELL': 
